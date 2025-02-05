@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="block">
+    <h2>📖 Book List</h2>
+</div>
+
+<div class="block">
+    <!-- Search bar -->
+    <form method="GET">
+        <input type="text" name="q" placeholder="Search by title">
+        <button type="submit">🔍 Search</button>
+    </form>
+</div>
+
+<table style="width:100%; border-collapse: collapse;">
+    <tr>
+        <th style="padding: 10px;">Title</th>
+        <th style="padding: 10px;">Author</th>
+        <th style="padding: 10px;">Actions</th>
+    </tr>
+    {% for book in books %}
+    <tr>
+        <td style="padding: 10px; word-wrap: break-word; overflow-wrap: break-word; max-width: 300px;">
+            <a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a>
+        </td>
+        <td style="padding: 10px;">{{ book.author }}</td>
+        <td style="padding: 10px;">
+            <a href="{% url 'edit_book' book.pk %}">✏️ Edit</a>
+            <form action="{% url 'delete_book' book.pk %}" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="button delete">❌</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

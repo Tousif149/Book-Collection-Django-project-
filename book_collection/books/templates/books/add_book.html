@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>➕ Add a New Book</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+<p><a href="{% url 'list_books' %}">🔙 Back to List</a></p>
+{% endblock %}

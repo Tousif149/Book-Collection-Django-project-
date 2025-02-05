@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="block">
+    <h2>📖 {{ book.title }}</h2>
+</div>
+
+<!-- Author Block -->
+<div class="block light">
+    <h3>✍️ Author</h3>
+    <p>{{ book.author }}</p>
+</div>
+
+<!-- Published Date Block -->
+<div class="block light">
+    <h3>📅 Published Date</h3>
+    <p>{{ book.published_date }}</p>
+</div>
+
+<!-- Summary Block -->
+<div class="block">
+    <h3>📜 Summary</h3>
+    <p>{{ book.summary }}</p>
+</div>
+
+<!-- Actions Block (Edit, Delete, Back) -->
+<div class="block actions">
+    <a href="{% url 'edit_book' book.pk %}" class="button edit">✏️ Edit</a>
+    <a href="{% url 'list_books' %}" class="button back">🏠 Back to Home</a>
+    <form action="{% url 'delete_book' book.pk %}" method="POST" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="button deleted">🗑️ Delete</button>
+    </form>
+</div>
+
+{% endblock %}
